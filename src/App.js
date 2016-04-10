@@ -7,7 +7,7 @@ export class App extends Component {
     super(props)
     this.state = { 
         entries: []
-      , vocabulary: []
+      , terms: []
       , points: []
       , tags: []
       , createFormHidden: true
@@ -37,8 +37,8 @@ export class App extends Component {
 
   addTerm(e){
     e.preventDefault();
-    this.state.vocabulary.push(this.refs.term.value.trim());
-    this.setState({ vocabulary: this.state.vocabulary });
+    this.state.terms.push({ name: '', definition: ''});
+    this.setState({ terms: this.state.terms });
   }
 
   addPoint(e){
@@ -49,7 +49,7 @@ export class App extends Component {
 
   addTag(e){
     e.preventDefault();
-    this.state.tags.push(this.refs.tag.value.trim());
+    this.state.tags.shift(this.refs.tag.value.trim());
     this.setState({ tags: this.state.tags });
   }
 
@@ -62,7 +62,7 @@ export class App extends Component {
       , source: this.refs.source.value.trim()
       , title: this.refs.title.value.trim()
       , description: this.refs.description.value.trim()
-      , vocabulary: this.state.vocabulary
+      , terms: this.state.terms
       , points: this.state.points
       , tags: this.state.tags
     }
@@ -70,14 +70,14 @@ export class App extends Component {
   }
 
   render() {
-    const { entries, vocabulary, points, tags, createFormHidden } = this.state
+    const { entries, terms, points, tags, createFormHidden } = this.state
     return (
       <div style={{ padding: '12px' }}>
         <h1> Engineer Progress </h1>
         <button onClick={this.setState.bind(this, {createFormHidden: !createFormHidden})}>
           { createFormHidden ? 'open' : 'close' } create form 
         </button>
-        <form style={{ border: '1px solid gray', padding: '12px' }} hidden={createFormHidden}>
+        <form style={{ border: '1px solid gray', padding: '12px', maxWidth: '600px' }} hidden={createFormHidden}>
           <h2> Create New Entry </h2>
 
         {/* Source Input */}
@@ -87,29 +87,38 @@ export class App extends Component {
           </div>
 
         {/* Title Input */}
-          <div style={{ border: '1px solid gray', width: '100%', position: 'relative', height: '80px', top: '-2' }}>
+          <div style={{ border: '1px solid gray', width: '100%', position: 'relative', height: '80px', borderTop: '0' }}>
             <label style={{ position: 'absolute', left: '10px' }} >Title</label>
             <input type="text" style={{ width: '100%', height: '100%', borderRadius: '0', marginBottom: '0' }} />
           </div>
+
+        {/* Description Input */}
+          <div style={{ border: '1px solid gray', width: '100%', position: 'relative', height: '80px', borderTop: '0' }}>
+            <label style={{ position: 'absolute', left: '10px' }} >Description</label>
+            <input type="text" style={{ width: '100%', height: '100%', borderRadius: '0', marginBottom: '0' }} />
+          </div>
+
+        {/* Type Input */}
+          <div style={{ border: '1px solid gray', width: '100%', position: 'relative', height: '80px', borderTop: '0' }}>
+            <label style={{ position: 'absolute', left: '10px' }} >Type</label>
+            <input type="text" style={{ width: '100%', height: '100%', borderRadius: '0', marginBottom: '0' }} />
+          </div>
     
-          <label> type </label>
-          <input type="text" ref="type" />
+          
 
-          <label> source </label>
-          <input type="text" ref="source" />
-
-          <label> title </label>
-          <input type="text" ref="title" />
-
-          <label> description </label>
-          <input type="text" ref="description" />
-
-          <label> vocabulary </label>
-          <input type="text" ref="term" />
-          <button onClick={this.addTerm}> add term </button>
+        {/* Terms Input */}
+          <label style={{ display: "inline-block"}}> Terms </label>  
+          <span onClick={this.addTerm}> + </span>
           {
-            vocabulary.map( term => {
-              return <span key={term} style={{ padding: '6px'}}> {term} </span>;
+            terms.map( term => {
+              return(
+                <div style={{ border: '1px solid gray', height: '100px', position: 'relative', overflow: 'hidden', marginBottom: '8px'}}> 
+                  <input type="text" placeholder="name" value={term.name} style={{ width: '100%', borderRadius: '0', position: "absolute", height: '40px' }} />
+                  {/* <span style={{ position: "absolute", top: "4px", left: "8px"}}> term: </span> */}
+                  <span style={{ position: "absolute", top: "4px", right: "8px"}}> X </span> 
+                  <input type="text" placeholder="definition" value={term.definition} style={{ width: '100%', position: "absolute", top: '40px', height: '60px', borderRadius: '0' }} />
+                </div>
+              );
             })
           }
 
