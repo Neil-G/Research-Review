@@ -10,6 +10,7 @@ export class App extends Component {
       , vocabulary: []
       , points: []
       , tags: []
+      , createFormHidden: true
     }
     this.onCreateEntry = this.onCreateEntry.bind(this);
     this.addTerm = this.addTerm.bind(this);
@@ -28,7 +29,6 @@ export class App extends Component {
       })
       this.setState({ entries: entries })
     });
-
   }
 
   componentWillUnmount() {
@@ -70,11 +70,14 @@ export class App extends Component {
   }
 
   render() {
-    const { entries, vocabulary, points, tags } = this.state
+    const { entries, vocabulary, points, tags, createFormHidden } = this.state
     return (
-      <div style={{ padding: '12px' }} >
+      <div style={{ padding: '12px' }}>
         <h1> Engineer Progress </h1>
-        <form style={{ border: '1px solid gray', padding: '12px' }} >
+        <button onClick={this.setState.bind(this, {createFormHidden: !createFormHidden})}>
+          { createFormHidden ? 'open' : 'close' } create form 
+        </button>
+        <form style={{ border: '1px solid gray', padding: '12px' }} hidden={createFormHidden}>
           <h2> Create New Entry </h2>
           <label> date </label>
           <input type="date" ref="date" />
@@ -135,24 +138,22 @@ export class App extends Component {
                       </div>
 
                       <div style={{ clear: 'both', float: 'left' }}>
-                        { entry.type }
+                        type: { entry.type }
                       </div>
 
-                      <div style={{ clear: 'both' }}>{ entry.source }: { entry.title }</div>
+                      <div style={{ clear: 'both', textDecoration: 'underline' }}>{ entry.source }: { entry.title }</div>
                       <div>{ entry.description }</div>
                       <div>
-                        terms:
-                        { entry.vocabulary.map( term => {
-                            return <span> {term} </span>
-                          }) 
-                        }
+                        <b>terms</b>: <br/> { entry.vocabulary.join(', ') }
                       </div>
                       <div>
-                        points:
+                        <ul>
+                        <b>points</b>:
                         { entry.points.map( point => {
-                            return <span> {point}. </span>
+                            return <li> {point}. </li>
                           }) 
                         }
+                        </ul>
                       </div>
                       <div>
                         tags:
