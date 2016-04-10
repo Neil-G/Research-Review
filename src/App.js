@@ -120,25 +120,37 @@ export class App extends Component {
         {/* Source Input */}
           <div style={{ border: '1px solid gray', width: '100%', position: 'relative', height: '80px', clear: "both" }}>
             <label style={{ position: 'absolute', left: '10px' }} >Source</label>
-            <input type="text" style={{ width: '100%', height: '100%', borderRadius: '0', marginBottom: '0' }} />
+            <input 
+              type="text" 
+              ref="source-input"
+              style={{ width: '100%', height: '100%', borderRadius: '0', marginBottom: '0' }} />
           </div>
 
         {/* Title Input */}
           <div style={{ border: '1px solid gray', width: '100%', position: 'relative', height: '80px', borderTop: '0' }}>
             <label style={{ position: 'absolute', left: '10px' }} >Title</label>
-            <input type="text" style={{ width: '100%', height: '100%', borderRadius: '0', marginBottom: '0' }} />
+            <input 
+              type="text"
+              ref="title-input" 
+              style={{ width: '100%', height: '100%', borderRadius: '0', marginBottom: '0' }} />
           </div>
 
         {/* Description Input */}
           <div style={{ border: '1px solid gray', width: '100%', position: 'relative', height: '80px', borderTop: '0' }}>
             <label style={{ position: 'absolute', left: '10px' }} >Description</label>
-            <input type="text" style={{ width: '100%', height: '100%', borderRadius: '0', marginBottom: '0' }} />
+            <input
+              ref="description-input" 
+              type="text" 
+              style={{ width: '100%', height: '100%', borderRadius: '0', marginBottom: '0' }} />
           </div>
 
         {/* Type Input */}
           <div style={{ border: '1px solid gray', width: '100%', position: 'relative', height: '80px', borderTop: '0' }}>
             <label style={{ position: 'absolute', left: '10px' }} >Type</label>
-            <input type="text" style={{ width: '100%', height: '100%', borderRadius: '0', marginBottom: '0' }} />
+            <input 
+              ref="type-input"
+              type="text" 
+              style={{ width: '100%', height: '100%', borderRadius: '0', marginBottom: '0' }} />
           </div>
     
           
