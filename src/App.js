@@ -89,16 +89,30 @@ export class App extends Component {
     const { entries, terms, points, tags, createFormHidden } = this.state
     return (
       <div style={{ padding: '12px' }}>
-        <h1> Engineer Progress </h1>
+        <h1 style={{ display: 'inline-block' }}> Engineer Progress </h1>
         <button onClick={this.setState.bind(this, {createFormHidden: !createFormHidden})}>
           { createFormHidden ? 'open' : 'close' } create form 
         </button>
         
-        <form style={{ border: '1px solid gray', padding: '12px', maxWidth: '600px' }} hidden={createFormHidden}>
+        <form 
+          style={{ 
+            border: '1px solid gray'
+            , boxSizing: 'border-box'
+            , padding: '12px'
+            , background: 'white'
+            , maxWidth: '600px'
+            , width: '96%'
+            , position: 'fixed'
+            , top: '80px'
+            , bottom: '4px'
+            , left: '8px'
+            , overflowY: 'scroll'
+            , transition: 'all 1s'
+            , transform: createFormHidden ? 'translateX(-700px)' : 'translateX(0px)'
+          }}>
           
           <h2 style={{ display: 'inline-block', float: 'left'}} > Create New Entry </h2> 
-          <button style={{ float: "right" }} onClick={this.onCreateEntry}> create new entry </button>
-          
+          <button style={{ float: 'right'}} > close </button>
 
         {/* Source Input */}
           <div style={{ border: '1px solid gray', width: '100%', position: 'relative', height: '80px', clear: "both" }}>
@@ -133,7 +147,7 @@ export class App extends Component {
             terms.map( (term, index) => {
               return(
                 <div style={{ border: '1px solid gray', height: '100px', position: 'relative', overflow: 'hidden', marginBottom: '8px'}}> 
-                  
+
                   <input 
                     type="text" 
                     placeholder="name" 
@@ -180,14 +194,15 @@ export class App extends Component {
           <label> Tags </label>
           <input type="text" ref="add-tag-input"/> 
           <span onClick={this.addTag}> + </span>
-          <div>
+          <div style={{ marginBottom: '12px'}}  >
           {
             tags.map( tag => {
-              return <span key={tag} style={{ padding: '6px 18px', border: "1px solid gray", borderRadius: '100', marginRight: '4px'}}> {tag} </span>;
+              return <span key={tag} style={{ padding: '6px 18px', border: "1px solid gray", borderRadius: '100', marginRight: '4px', marginBottom: '4px'}}> {tag} </span>;
             })
           }
           </div>
-    
+          <button style={{ width: "100%" }} onClick={this.onCreateEntry}> create new entry </button>
+          
         </form>
 
 
