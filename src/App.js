@@ -13,32 +13,47 @@ export class App extends Component {
       , createFormHidden: true
     }
     this.onCreateEntry = this.onCreateEntry.bind(this);
-    this.addTerm = this.addTerm.bind(this);
     this.addPoint = this.addPoint.bind(this);
     this.addTag = this.addTag.bind(this);
+
+    this.addTerm = this.addTerm.bind(this);
+    this.updateTerm = this.updateTerm.bind(this)
+    this.deleteTerm = this.deleteTerm.bind(this)
   }
 
-  componentWillMount(){
-    this.ref = new firebase("https://engineerprogress.firebaseio.com/entries");
-    this.ref.on('value', dataSnapshot => {
-      let entries = [];
-      dataSnapshot.forEach( childSnapShot => {
-        let entry = childSnapShot.val()
-        entry.id = childSnapShot.key()
-        entries.push(entry)
-      })
-      this.setState({ entries: entries })
-    });
-  }
+  // componentWillMount(){
+  //   this.ref = new firebase("https://engineerprogress.firebaseio.com/entries");
+  //   this.ref.on('value', dataSnapshot => {
+  //     let entries = [];
+  //     dataSnapshot.forEach( childSnapShot => {
+  //       let entry = childSnapShot.val()
+  //       entry.id = childSnapShot.key()
+  //       entries.push(entry)
+  //     })
+  //     this.setState({ entries: entries })
+  //   });
+  // }
 
-  componentWillUnmount() {
-    this.ref.off();
+  // componentWillUnmount() {
+  //   this.ref.off();
+  // }
+
+  updateTerm(e, key, index){
+    e.preventDefault();
+    this.state.terms[index][key] = e.target.value;
+    this.setState({ terms: this.state.terms })
   }
 
   addTerm(e){
     e.preventDefault();
     this.state.terms.unshift({ name: '', definition: ''});
     this.setState({ terms: this.state.terms });
+  }
+
+  deleteTerm(e, index){
+    e.preventDefault();
+    this.state.terms.splice(index, 1)
+    this.setState({ terms: this.state.terms })
   }
 
   addPoint(e){
@@ -49,8 +64,9 @@ export class App extends Component {
 
   addTag(e){
     e.preventDefault();
-    this.state.tags.shift(this.refs.tag.value.trim());
+    this.state.tags.unshift(this.refs["add-tag-input"].value.trim());
     this.setState({ tags: this.state.tags });
+    this.refs["add-tag-input"].value = "";
   }
 
 
@@ -77,11 +93,15 @@ export class App extends Component {
         <button onClick={this.setState.bind(this, {createFormHidden: !createFormHidden})}>
           { createFormHidden ? 'open' : 'close' } create form 
         </button>
+        
         <form style={{ border: '1px solid gray', padding: '12px', maxWidth: '600px' }} hidden={createFormHidden}>
-          <h2> Create New Entry </h2>
+          
+          <h2 style={{ display: 'inline-block', float: 'left'}} > Create New Entry </h2> 
+          <button style={{ float: "right" }} onClick={this.onCreateEntry}> create new entry </button>
+          
 
         {/* Source Input */}
-          <div style={{ border: '1px solid gray', width: '100%', position: 'relative', height: '80px' }}>
+          <div style={{ border: '1px solid gray', width: '100%', position: 'relative', height: '80px', clear: "both" }}>
             <label style={{ position: 'absolute', left: '10px' }} >Source</label>
             <input type="text" style={{ width: '100%', height: '100%', borderRadius: '0', marginBottom: '0' }} />
           </div>
@@ -110,20 +130,38 @@ export class App extends Component {
           <label style={{ display: "inline-block"}}> Terms </label>  
           <span onClick={this.addTerm}> + </span>
           {
-            terms.map( term => {
+            terms.map( (term, index) => {
               return(
                 <div style={{ border: '1px solid gray', height: '100px', position: 'relative', overflow: 'hidden', marginBottom: '8px'}}> 
-                  <input type="text" placeholder="name" value={term.name} style={{ width: '100%', borderRadius: '0', position: "absolute", height: '40px' }} />
-                  {/* <span style={{ position: "absolute", top: "4px", left: "8px"}}> term: </span> */}
-                  <span style={{ position: "absolute", top: "4px", right: "8px"}}> X </span> 
-                  <input type="text" placeholder="definition" value={term.definition} style={{ width: '100%', position: "absolute", top: '40px', height: '60px', borderRadius: '0' }} />
+                  
+                  <input 
+                    type="text" 
+                    placeholder="name" 
+                    value={terms[index].name}
+                    onChange={e => this.updateTerm(e, 'name', index)} 
+                    style={{ width: '100%', borderRadius: '0', position: "absolute", height: '40px' }} 
+                  />
+                  <span 
+                    style={{ position: "absolute", top: "4px", right: "8px"}}
+                    onClick={e => this.deleteTerm(e, index)}
+                  > 
+                    X 
+                  </span> 
+                  <input 
+                    type="text" 
+                    placeholder="definition" 
+                    value={terms[index].definition} 
+                    onChange={e => this.updateTerm(e, 'definition', index)} 
+                    style={{ width: '100%', position: "absolute", top: '40px', height: '60px', borderRadius: '0' }} 
+                  />
                 </div>
               );
             })
           }
 
-          <label> points </label>
-          <button onClick={this.addPoint}> add point </button>
+          <br/>
+          <label style={{ display: "inline-block"}}> Points </label>
+          <span onClick={this.addPoint}> + </span>
           <ul>
           {
             points.map( point => {
@@ -138,19 +176,21 @@ export class App extends Component {
           }
           </ul>
 
-          <label> tags </label>
-          <input type="text" ref="tag" />
-          <button onClick={this.addTag}> add tag </button>
+
+          <label> Tags </label>
+          <input type="text" ref="add-tag-input"/> 
+          <span onClick={this.addTag}> + </span>
+          <div>
           {
             tags.map( tag => {
-              return <span key={tag} style={{ padding: '6px'}}> {tag} </span>;
+              return <span key={tag} style={{ padding: '6px 18px', border: "1px solid gray", borderRadius: '100', marginRight: '4px'}}> {tag} </span>;
             })
           }
-
-
-
-          <button onClick={this.onCreateEntry}> create new entry </button>
+          </div>
+    
         </form>
+
+
         <h2> Entries </h2>
               { entries.map( entry => {
                   return(
@@ -195,7 +235,9 @@ export class App extends Component {
                     {/* Tags */}
                       <div>
                         { entry.tags.map( tag => {
-                            return <span style={{ border: '1px solid gray', borderRadius: '100px', padding: '6px'}}> {tag} </span>
+                            return( 
+                              <span style={{ border: '1px solid gray', borderRadius: '100px', padding: '6px' }}> {tag} </span>
+                            )
                           }) 
                         }
                       </div>
