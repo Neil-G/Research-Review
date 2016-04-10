@@ -23,6 +23,9 @@ export class App extends Component {
     this.deleteTerm = this.deleteTerm.bind(this)
 
     this.createEntry = this.createEntry.bind(this)
+
+    this.updatePointorTag = this.updatePointorTag.bind(this)
+    this.deletePointorTag = this.deletePointorTag.bind(this)
   }
 
   // componentWillMount(){
@@ -46,6 +49,17 @@ export class App extends Component {
     e.preventDefault();
     this.state.terms[index][key] = e.target.value;
     this.setState({ terms: this.state.terms })
+  }
+
+  updatePointorTag(e, arrayName, index){
+    e.preventDefault();
+    this.state[arrayName][index] = e.target.value;
+    this.setState({ tags: this.state.tags, points: this.state.points })
+  }
+
+  deletePointorTag(arrayName, index){
+    this.state[arrayName].splice(index, 1)
+    this.setState({ tags: this.state.tags, points: this.state.points })
   }
 
   addTerm(e){
@@ -104,7 +118,7 @@ export class App extends Component {
   }
 
   render() {
-    console.log("this.props", this.props)
+    console.log("this.state.points", this.state.points)
     const { entries, terms, points, tags, createFormHidden } = this.state
     return (
       <div style={{ padding: '12px' }}>
@@ -151,7 +165,7 @@ export class App extends Component {
               style={{ width: '100%', height: '100%', borderRadius: '0', marginBottom: '0' }} />
           </div>
 
-        {/* Description Input */}
+{/* Description Input */}
           <div style={{ border: '1px solid gray', width: '100%', position: 'relative', height: '80px', borderTop: '0' }}>
             <label style={{ position: 'absolute', left: '10px' }} >Description</label>
             <input
@@ -160,9 +174,9 @@ export class App extends Component {
               style={{ width: '100%', height: '100%', borderRadius: '0', marginBottom: '0' }} />
           </div>
 
-        {/* Type Input */}
+{/* Type Input */}
           <div style={{ border: '1px solid gray', width: '100%', position: 'relative', height: '80px', borderTop: '0' }}>
-            <label style={{ position: 'absolute', left: '10px' }} >Type</label>
+            <label style={{ position: 'absolute', left: '10px' }}>Type</label>
             <input 
               ref="type-input"
               type="text" 
@@ -171,7 +185,7 @@ export class App extends Component {
     
           
 
-        {/* Terms Input */}
+{/* Terms Input */}
           <label style={{ display: "inline-block"}}> Terms </label>  
           <span onClick={this.addTerm}> + </span>
           {
@@ -208,12 +222,23 @@ export class App extends Component {
           <label style={{ display: "inline-block"}}> Points </label>
           <span onClick={this.addPoint}> + </span>
           <ul>
+          
           {
-            points.map( point => {
+            points.map( (point, index) => {
               return(
               <div style={{ position: 'relative'}} > 
-                <textarea style={{ width: "100%", position: "relative", height: '100%', maxWidth: "100%" }}/>
-                <span style={{ position: 'absolute', top: '0px', right: '8px'}}> X </span>
+{/* Points Input */}
+                <textarea 
+                  style={{ width: "100%", position: "relative", height: '100%', maxWidth: "100%" }}
+                  onChange={e => this.updatePointorTag(e, 'points', index) }
+                  value={point}
+                />
+                <span 
+                  onClick={ () => this.deletePointorTag('points', index) }
+                  style={{ position: 'absolute', top: '0px', right: '8px'}}
+                > 
+                X 
+                </span>
               </div> 
               )
 
