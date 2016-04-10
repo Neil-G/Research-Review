@@ -19,6 +19,8 @@ export class EntryCreateOrUpdateForm extends Component {
 
     this.updatePointorTag = this.updatePointorTag.bind(this)
     this.deletePointorTag = this.deletePointorTag.bind(this)
+
+    this.closeForm = this.closeForm.bind(this)
   }
 
   updateTerm(e, key, index){
@@ -79,9 +81,30 @@ export class EntryCreateOrUpdateForm extends Component {
     this.props.onCreateEntryClick(newEntry)
   }
 
+  closeForm(e){
+  	e.preventDefault()
+  	this.props.closeForm()
+  }
+
+  componentWillReceiveProps(nextProps){
+  	console.log("this.nextProps", nextProps)
+  	if (nextProps.formState.data){
+  		this.refs['source-input'].value = nextProps.formState.data.source
+  		this.refs['title-input'].value = nextProps.formState.data.title
+  		this.refs['description-input'].value = nextProps.formState.data.description
+  		this.refs['type-input'].value = nextProps.formState.data.type
+
+  		this.setState({
+  				terms: nextProps.formState.data.terms
+  			, points: nextProps.formState.data.points
+  			, tags: nextProps.formState.data.tags
+  		})
+  	}
+  }
+
 	render(){
 		const { terms, points, tags } = this.state
-		const { formHidden } = this.props
+		const { formState, closeForm } = this.props
 		return(
 		<form 
           style={{ 
@@ -97,15 +120,18 @@ export class EntryCreateOrUpdateForm extends Component {
             , left: '8px'
             , overflowY: 'scroll'
             , transition: 'all 1s'
-            , transform: formHidden ? 'translateX(-700px)' : 'translateX(0px)'
+            , transform: formState.state === "closed" ? 'translateX(-700px)' : 'translateX(0px)'
           }}>
           
-          <h2 style={{ display: 'inline-block', float: 'left'}} > Create New Entry </h2> 
-          <button style={{ float: 'right'}} > close </button>
+          <h2 style={{ display: 'inline-block', float: 'left'}}> 
+          	{formState.state != "closed" && formState.state} 
+          </h2> 
+
+          <button style={{ float: 'right'}} onClick={this.closeForm} > close </button>
 
         {/* Source Input */}
           <div style={{ border: '1px solid gray', width: '100%', position: 'relative', height: '80px', clear: "both" }}>
-            <label style={{ position: 'absolute', left: '10px' }} >Source</label>
+            <label style={{ position: 'absolute', left: '10px' }}>Source</label>
             <input 
               type="text" 
               ref="source-input"

@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
 
 export class Entry extends Component {
+	openEditForm(){
+		this.props.openEditForm(this.props.entry)
+	}
+
 	render(){
-		const { entry } = this.props
+		const { entry, openEditForm } = this.props
 		return(
 			<div 
         key={entry.createdAt} 
-        style={{ border: '3px solid gray', padding: '12px', position: 'relative', maxWidth: '600px', maxHeight: '600px', overflowY: 'scroll' }}>
+        style={{ boxSizing: 'box-border', border: '3px solid gray', padding: '12px', position: 'relative', maxWidth: '600px', maxHeight: '600px', overflowY: 'scroll' }}>
         <h1 style={{ float: 'left', display: 'inline-block', marginBottom: '0'}}>
           { entry.source } <span style={{ fontSize: '0.3em'}} > { entry.type } </span>
         </h1>
 
-        <div style={{ float: 'right' }} >
+        <div style={{ float: 'right' }} onClick={ this.openEditForm.bind(this) }>
           Edit
         </div>
 
