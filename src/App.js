@@ -79,8 +79,18 @@ export class App extends Component {
         </button>
         <form style={{ border: '1px solid gray', padding: '12px' }} hidden={createFormHidden}>
           <h2> Create New Entry </h2>
-          <label> date </label>
-          <input type="date" ref="date" />
+
+        {/* Source Input */}
+          <div style={{ border: '1px solid gray', width: '100%', position: 'relative', height: '80px' }}>
+            <label style={{ position: 'absolute', left: '10px' }} >Source</label>
+            <input type="text" style={{ width: '100%', height: '100%', borderRadius: '0', marginBottom: '0' }} />
+          </div>
+
+        {/* Title Input */}
+          <div style={{ border: '1px solid gray', width: '100%', position: 'relative', height: '80px', top: '-2' }}>
+            <label style={{ position: 'absolute', left: '10px' }} >Title</label>
+            <input type="text" style={{ width: '100%', height: '100%', borderRadius: '0', marginBottom: '0' }} />
+          </div>
     
           <label> type </label>
           <input type="text" ref="type" />
@@ -130,35 +140,48 @@ export class App extends Component {
         <h2> Entries </h2>
               { entries.map( entry => {
                   return(
+                    // Entry Preview 
                     <div 
                       key={entry.id} 
-                      style={{ border: '1px solid gray', padding: '4px', position: 'relative' }}>
-                      <div style={{ float: 'left'}}>
-                        { moment(entry.date).format("MMM Do YY") }
+                      style={{ border: '3px solid gray', padding: '12px', position: 'relative', maxWidth: '600px', maxHeight: '600px', overflowY: 'scroll' }}>
+                      <h1 style={{ float: 'left', display: 'inline-block', marginBottom: '0'}}>
+                        { entry.source } <span style={{ fontSize: '0.3em'}} > { entry.type } </span>
+                      </h1>
+
+                      <div style={{ float: 'right' }} >
+                        Edit
                       </div>
 
-                      <div style={{ clear: 'both', float: 'left' }}>
-                        type: { entry.type }
-                      </div>
 
-                      <div style={{ clear: 'both', textDecoration: 'underline' }}>{ entry.source }: { entry.title }</div>
+                      <h4 style={{ clear: 'both' }}>{ entry.title }</h4>
                       <div>{ entry.description }</div>
+
+                <div hidden={false} style={{ maxHeight: 1000, overflow: 'hidden', transition: 'all 0.8s'}} >    
+                    {/* Terms */}
                       <div>
-                        <b>terms</b>: <br/> { entry.vocabulary.join(', ') }
+                        <b>Terms</b> <br/> 
+                        <ul>
+                        { 
+                          entry.vocabulary.map( term => <li>{term}<ul><li>definition</li></ul></li>) 
+                        }
+                        </ul>
                       </div>
                       <div>
                         <ul>
-                        <b>points</b>:
+                        
+                    {/* Points */}
+                        <b>Points</b>
                         { entry.points.map( point => {
                             return <li> {point}. </li>
                           }) 
                         }
                         </ul>
                       </div>
+                </div>      
+                    {/* Tags */}
                       <div>
-                        tags:
                         { entry.tags.map( tag => {
-                            return <span> {tag} </span>
+                            return <span style={{ border: '1px solid gray', borderRadius: '100px', padding: '6px'}}> {tag} </span>
                           }) 
                         }
                       </div>
