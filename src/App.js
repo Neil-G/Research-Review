@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import firebase from 'firebase';
 import moment from 'moment';
+import { connect } from 'react-redux';
+
 
 export class App extends Component {
   constructor(props){
@@ -86,6 +88,7 @@ export class App extends Component {
   }
 
   render() {
+    console.log("this.props", this.props)
     const { entries, terms, points, tags, createFormHidden } = this.state
     return (
       <div style={{ padding: '12px' }}>
@@ -264,3 +267,13 @@ export class App extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    entries: state.entries
+  }
+}
+
+export const AppContainer = connect(
+  mapStateToProps
+)(App)
