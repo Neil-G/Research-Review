@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import firebase from 'firebase';
 import moment from 'moment';
 import { connect } from 'react-redux';
-
+import { addEntry } from './actions';
 
 export class App extends Component {
   constructor(props){
@@ -204,7 +204,7 @@ export class App extends Component {
             })
           }
           </div>
-          <button style={{ width: "100%" }} onClick={this.onCreateEntry}> create new entry </button>
+          <button style={{ width: "100%" }} onClick={(e) =>{e.preventDefault(); this.props.onCreateEntryClick();}}> create new entry </button>
           
         </form>
 
@@ -274,6 +274,12 @@ const mapStateToProps = (state) => {
   }
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onCreateEntryClick: entry => dispatch(addEntry(entry))
+  }
+}
+
 export const AppContainer = connect(
-  mapStateToProps
+  mapStateToProps, mapDispatchToProps
 )(App)
