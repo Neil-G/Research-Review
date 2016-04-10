@@ -37,13 +37,13 @@ export class App extends Component {
 
   addTerm(e){
     e.preventDefault();
-    this.state.terms.push({ name: '', definition: ''});
+    this.state.terms.unshift({ name: '', definition: ''});
     this.setState({ terms: this.state.terms });
   }
 
   addPoint(e){
     e.preventDefault();
-    this.state.points.push(this.refs.point.value.trim());
+    this.state.points.unshift('');
     this.setState({ points: this.state.points });
   }
 
@@ -123,12 +123,17 @@ export class App extends Component {
           }
 
           <label> points </label>
-          <textarea ref="point" />
           <button onClick={this.addPoint}> add point </button>
           <ul>
           {
             points.map( point => {
-              return <li> {point} </li>
+              return(
+              <div style={{ position: 'relative'}} > 
+                <textarea style={{ width: "100%", position: "relative", height: '100%', maxWidth: "100%" }}/>
+                <span style={{ position: 'absolute', top: '0px', right: '8px'}}> X </span>
+              </div> 
+              )
+
             })
           }
           </ul>
