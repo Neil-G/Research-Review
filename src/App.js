@@ -8,13 +8,11 @@ export class App extends Component {
   constructor(props){
     super(props)
     this.state = { 
-        entries: []
-      , terms: []
+        terms: []
       , points: []
       , tags: []
       , createFormHidden: true
     }
-    this.onCreateEntry = this.onCreateEntry.bind(this);
     this.addPoint = this.addPoint.bind(this);
     this.addTag = this.addTag.bind(this);
 
@@ -90,7 +88,8 @@ export class App extends Component {
   createEntry(e){
     e.preventDefault();
     const newEntry = {
-        source: this.refs['source-input'].value.trim()
+        createdAt: Date.now()
+      , source: this.refs['source-input'].value.trim()
       , title: this.refs['title-input'].value.trim()
       , description: this.refs['description-input'].value.trim()
       , type: this.refs['type-input'].value.trim()
@@ -99,27 +98,14 @@ export class App extends Component {
       , tags: this.state.tags
     }
     console.log("newEntry", newEntry)
+    this.props.onCreateEntryClick(newEntry)
   }
 
-
-  onCreateEntry(e){
-    e.preventDefault();
-    let newEntry = {
-        date: Date.now()
-      , type: this.refs.type.value.trim()
-      , source: this.refs.source.value.trim()
-      , title: this.refs.title.value.trim()
-      , description: this.refs.description.value.trim()
-      , terms: this.state.terms
-      , points: this.state.points
-      , tags: this.state.tags
-    }
-    this.ref.push(newEntry)    
-  }
 
   render() {
-    console.log("this.state.points", this.state.points)
-    const { entries, terms, points, tags, createFormHidden } = this.state
+    console.log("this.props.entries", this.props.entries)
+    const { terms, points, tags, createFormHidden } = this.state
+    const { entries } = this.props
     return (
       <div style={{ padding: '12px' }}>
         <h1 style={{ display: 'inline-block' }}> Engineer Progress </h1>
@@ -247,13 +233,20 @@ export class App extends Component {
           </ul>
 
 
+{/* Tags Input */}
           <label> Tags </label>
           <input type="text" ref="add-tag-input"/> 
           <span onClick={this.addTag}> + </span>
           <div style={{ marginBottom: '12px'}}  >
           {
-            tags.map( tag => {
-              return <span key={tag} style={{ padding: '6px 18px', border: "1px solid gray", borderRadius: '100', marginRight: '4px', marginBottom: '4px'}}> {tag} </span>;
+            tags.map( (tag, index) => {
+              return( 
+                <span 
+                  key={tag}
+                  onClick={() => this.deletePointorTag('tags', index)} 
+                  style={{ padding: '6px 18px', border: "1px solid gray", borderRadius: '100', marginRight: '4px', marginBottom: '4px'}}> 
+                  {tag} 
+                </span>);
             })
           }
           </div>
@@ -267,7 +260,7 @@ export class App extends Component {
                   return(
                     // Entry Preview 
                     <div 
-                      key={entry.id} 
+                      key={entry.createdAt} 
                       style={{ border: '3px solid gray', padding: '12px', position: 'relative', maxWidth: '600px', maxHeight: '600px', overflowY: 'scroll' }}>
                       <h1 style={{ float: 'left', display: 'inline-block', marginBottom: '0'}}>
                         { entry.source } <span style={{ fontSize: '0.3em'}} > { entry.type } </span>
@@ -287,7 +280,7 @@ export class App extends Component {
                         <b>Terms</b> <br/> 
                         <ul>
                         { 
-                          entry.vocabulary.map( term => <li>{term}<ul><li>definition</li></ul></li>) 
+                          entry.terms.map( term => <li>{term.name}<ul><li>{term.definition}</li></ul></li>) 
                         }
                         </ul>
                       </div>
