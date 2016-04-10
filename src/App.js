@@ -21,6 +21,8 @@ export class App extends Component {
     this.addTerm = this.addTerm.bind(this);
     this.updateTerm = this.updateTerm.bind(this)
     this.deleteTerm = this.deleteTerm.bind(this)
+
+    this.createEntry = this.createEntry.bind(this)
   }
 
   // componentWillMount(){
@@ -69,6 +71,20 @@ export class App extends Component {
     this.state.tags.unshift(this.refs["add-tag-input"].value.trim());
     this.setState({ tags: this.state.tags });
     this.refs["add-tag-input"].value = "";
+  }
+
+  createEntry(e){
+    e.preventDefault();
+    const newEntry = {
+        source: this.refs['source-input'].value.trim()
+      , title: this.refs['title-input'].value.trim()
+      , description: this.refs['description-input'].value.trim()
+      , type: this.refs['type-input'].value.trim()
+      , terms: this.state.terms
+      , points: this.state.points
+      , tags: this.state.tags
+    }
+    console.log("newEntry", newEntry)
   }
 
 
@@ -216,7 +232,7 @@ export class App extends Component {
             })
           }
           </div>
-          <button style={{ width: "100%" }} onClick={(e) =>{e.preventDefault(); this.props.onCreateEntryClick();}}> create new entry </button>
+          <button style={{ width: "100%" }} onClick={ this.createEntry }> create new entry </button>
           
         </form>
 
