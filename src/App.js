@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import firebase from 'firebase';
 import moment from 'moment';
 import { connect } from 'react-redux';
-import { addEntry } from './actions';
+import { addEntry, deleteEntry, editEntry } from './actions';
 import { EntryCreateOrUpdateForm } from './components/EntryCreateOrUpdateForm.react.js'
 import { Entry } from './components/Entry.react.js'
 
@@ -17,7 +17,7 @@ export class App extends Component {
   render() {
     // console.log("this.state.formState", this.state.formState)
     const { formState } = this.state
-    const { entries, onCreateEntryClick } = this.props
+    const { entries, onCreateEntryClick, onDeleteEntryClick, onEditEntryClick } = this.props
     return (
       <div style={{ padding: '12px' }}>
         <h1 style={{ display: 'inline-block' }}> Engineer Progress </h1>
@@ -31,7 +31,9 @@ export class App extends Component {
           <EntryCreateOrUpdateForm 
             closeForm={this.closeForm}
             formState={formState} 
-            onCreateEntryClick={onCreateEntryClick} />
+            onDeleteEntryClick={onDeleteEntryClick}
+            onCreateEntryClick={onCreateEntryClick}
+            onEditEntryClick={onEditEntryClick} />
       </div>
     );
   }
@@ -45,7 +47,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onCreateEntryClick: entry => dispatch(addEntry(entry))
+    onCreateEntryClick: entry => dispatch(addEntry(entry)),
+    onEditEntryClick: entry => dispatch(editEntry(entry)),
+    onDeleteEntryClick: entryID => dispatch(deleteEntry(entryID))
   }
 }
 

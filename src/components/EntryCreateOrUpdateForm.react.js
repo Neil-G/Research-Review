@@ -7,6 +7,7 @@ export class EntryCreateOrUpdateForm extends Component {
         terms: []
       , points: []
       , tags: []
+      , entryID: undefined
     }
     this.addPoint = this.addPoint.bind(this);
     this.addTag = this.addTag.bind(this);
@@ -16,11 +17,34 @@ export class EntryCreateOrUpdateForm extends Component {
     this.deleteTerm = this.deleteTerm.bind(this)
 
     this.createEntry = this.createEntry.bind(this)
+    this.editEntry = this.editEntry.bind(this)
+    this.deleteEntry = this.deleteEntry.bind(this)
 
     this.updatePointorTag = this.updatePointorTag.bind(this)
     this.deletePointorTag = this.deletePointorTag.bind(this)
 
     this.closeForm = this.closeForm.bind(this)
+  }
+
+  editEntry(e){
+  	e.preventDefault();
+  	const updatedEntry = {
+        createdAt: this.state.entryID
+      , source: this.refs['source-input'].value.trim()
+      , title: this.refs['title-input'].value.trim()
+      , description: this.refs['description-input'].value.trim()
+      , type: this.refs['type-input'].value.trim()
+      , terms: this.state.terms
+      , points: this.state.points
+      , tags: this.state.tags
+    }
+    console.log("updatedEntry", updatedEntry)
+    this.props.onEditEntryClick(updatedEntry)
+  }
+
+  deleteEntry(e){
+  	e.preventDefault();
+  	this.props.onDeleteEntryClick(this.props.formState.data.createdAt)
   }
 
   updateTerm(e, key, index){
@@ -98,6 +122,7 @@ export class EntryCreateOrUpdateForm extends Component {
   				terms: nextProps.formState.data.terms
   			, points: nextProps.formState.data.points
   			, tags: nextProps.formState.data.tags
+  			, entryID: nextProps.formState.data.createdAt
   		})
   	}
   }
@@ -247,6 +272,8 @@ export class EntryCreateOrUpdateForm extends Component {
           }
           </div>
           <button style={{ width: "100%" }} onClick={ this.createEntry }> create new entry </button>
+          <button style={{ width: "100%" }} onClick={ this.editEntry }> update entry </button>
+          { this.props.formState.data &&  <button style={{ width: "100%" }} onClick={ this.deleteEntry }> delete entry </button>}
           
         </form>
 		)

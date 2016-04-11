@@ -9,7 +9,7 @@ export const addEntry = (entry) => {
 export const deleteEntry = (entryID) => {
 	return {
 		type: 'DELETE_ENTRY',
-		entry
+		entryID
 	}
 }
 
