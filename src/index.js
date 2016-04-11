@@ -14,11 +14,15 @@ const firebaseRef = new Firebase("https://engineerprogress.firebaseio.com/")
 export const entriesRef = firebaseRef.child('entries')
 
 let entries = []
+let entry;
 
 // initial load from firebase
 entriesRef.once('value', dataSnapShot => {
 	dataSnapShot.forEach( childSnapShot => {
-		entries.push(childSnapShot.val())
+		entry = childSnapShot.val()
+		entry.firebaseID = childSnapShot.key()
+
+		entries.push(entry)
 	})
 	store.dispatch({
 		type: "SET_ENTRIES",
@@ -30,9 +34,11 @@ entriesRef.once('value', dataSnapShot => {
 
 //fetch newly created
 entriesRef.on("child_added", (childSnapShot, prevChildKey) => {
+	entry = childSnapShot.val()
+	entry.firebaseID = childSnapShot.key()
 	store.dispatch({
 		type: "ADD_ENTRY",
-		entry: childSnapShot.val()
+		entry: entry
 	})
 })
 

@@ -51,7 +51,9 @@ export class EntryCreateOrUpdateForm extends Component {
 
   deleteEntry(e){
   	e.preventDefault();
-  	this.props.onDeleteEntryClick(this.props.formState.data.createdAt)
+    console.log("this.props.formState.data.firebaseID", this.props.formState.data.firebaseID)
+    entriesRef.child(this.props.formState.data.firebaseID).remove()
+  	// this.props.onDeleteEntryClick(this.props.formState.data.createdAt)
   }
 
   updateTerm(e, key, index){
@@ -237,7 +239,7 @@ export class EntryCreateOrUpdateForm extends Component {
           <ul>
           
           {
-            points.map( (point, index) => {
+            points && points.map( (point, index) => {
               return(
               <div style={{ position: 'relative'}} > 
 {/* Points Input */}
@@ -266,7 +268,7 @@ export class EntryCreateOrUpdateForm extends Component {
           <span onClick={this.addTag}> + </span>
           <div style={{ marginBottom: '12px'}}  >
           {
-            tags.map( (tag, index) => {
+            tags && tags.map( (tag, index) => {
               return( 
                 <span 
                   key={tag}
