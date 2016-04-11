@@ -35,7 +35,7 @@ export class EntryCreateOrUpdateForm extends Component {
   editEntry(e){
   	e.preventDefault();
   	const updatedEntry = {
-        createdAt: this.state.entryID
+        createdAt: this.props.formState.data.createdAt || Date.now()
       , source: this.refs['source-input'].value.trim()
       , title: this.refs['title-input'].value.trim()
       , description: this.refs['description-input'].value.trim()
@@ -45,13 +45,15 @@ export class EntryCreateOrUpdateForm extends Component {
       , tags: this.state.tags
     }
     console.log("updatedEntry", updatedEntry)
-    this.props.onEditEntryClick(updatedEntry)
+    console.log("this.props.formState.data.firebaseID", this.props.formState.data.firebaseID)
+    entriesRef.child( this.props.formState.data.firebaseID ).update(updatedEntry)
+    // this.props.onEditEntryClick(updatedEntry)
   }
 
   deleteEntry(e){
   	e.preventDefault();
     console.log("this.props.formState.data.firebaseID", this.props.formState.data.firebaseID)
-    entriesRef.child(this.props.formState.data.firebaseID).remove()
+    entriesRef.child( this.props.formState.data.firebaseID).remove()
   }
 
   updateTerm(e, key, index){
