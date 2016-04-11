@@ -1,4 +1,11 @@
 import React, { Component } from 'react';
+import Firebase from 'firebase';
+
+// connecting firebase
+const firebaseRef = new Firebase("https://engineerprogress.firebaseio.com/")
+export const entriesRef = firebaseRef.child('entries')
+
+console.log("entriesRef", entriesRef)
 
 export class EntryCreateOrUpdateForm extends Component {
 	constructor(props){
@@ -101,8 +108,8 @@ export class EntryCreateOrUpdateForm extends Component {
       , points: this.state.points
       , tags: this.state.tags
     }
-    console.log("newEntry", newEntry)
-    this.props.onCreateEntryClick(newEntry)
+    entriesRef.push(newEntry)
+    // this.props.onCreateEntryClick(newEntry)
   }
 
   closeForm(e){
@@ -111,7 +118,6 @@ export class EntryCreateOrUpdateForm extends Component {
   }
 
   componentWillReceiveProps(nextProps){
-  	console.log("this.nextProps", nextProps)
   	if (nextProps.formState.data){
   		this.refs['source-input'].value = nextProps.formState.data.source
   		this.refs['title-input'].value = nextProps.formState.data.title

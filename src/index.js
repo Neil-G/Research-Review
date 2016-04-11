@@ -11,7 +11,7 @@ let store = createStore(mainReducer);
 
 // connecting firebase
 const firebaseRef = new Firebase("https://engineerprogress.firebaseio.com/")
-const entriesRef = firebaseRef.child('entries')
+export const entriesRef = firebaseRef.child('entries')
 
 let entries = []
 entriesRef.once('value', dataSnapShot => {
