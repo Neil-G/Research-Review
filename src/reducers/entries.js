@@ -19,8 +19,13 @@ const entries = (state = [], action) => {
 
 		case 'DELETE_ENTRY':
 			state.forEach( (entry, i) => {
-				if (entry.createdAt == action.entryID) index = i
+				if (entry.createdAt == action.entryID) {
+					index = i
+					console.log("entry.createdAt", entry.createdAt)
+					console.log("action.entryID", action.entryID)
+				}
 			})
+			console.log("entry being removed", state[index])
 			state.splice(index, 1)
 			return state;
 

@@ -5,7 +5,6 @@ import Firebase from 'firebase';
 const firebaseRef = new Firebase("https://engineerprogress.firebaseio.com/")
 export const entriesRef = firebaseRef.child('entries')
 
-console.log("entriesRef", entriesRef)
 
 export class EntryCreateOrUpdateForm extends Component {
 	constructor(props){
@@ -53,7 +52,6 @@ export class EntryCreateOrUpdateForm extends Component {
   	e.preventDefault();
     console.log("this.props.formState.data.firebaseID", this.props.formState.data.firebaseID)
     entriesRef.child(this.props.formState.data.firebaseID).remove()
-  	// this.props.onDeleteEntryClick(this.props.formState.data.createdAt)
   }
 
   updateTerm(e, key, index){
@@ -127,9 +125,9 @@ export class EntryCreateOrUpdateForm extends Component {
   		this.refs['type-input'].value = nextProps.formState.data.type
 
   		this.setState({
-  				terms: nextProps.formState.data.terms
-  			, points: nextProps.formState.data.points
-  			, tags: nextProps.formState.data.tags
+  				terms: nextProps.formState.data.terms || []
+  			, points: nextProps.formState.data.points || []
+  			, tags: nextProps.formState.data.tags || []
   			, entryID: nextProps.formState.data.createdAt
   		})
   	}

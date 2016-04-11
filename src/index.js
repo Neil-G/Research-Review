@@ -42,6 +42,14 @@ entriesRef.on("child_added", (childSnapShot, prevChildKey) => {
 	})
 })
 
+//remove deleted entry
+entriesRef.on("child_removed", oldChildSnapshot => {
+	console.log("oldChildSnapshot", oldChildSnapshot.val())
+	store.dispatch({
+		type: "DELETE_ENTRY",
+		entryID: oldChildSnapshot.val().createdAt
+	})
+})
 
 render(
 	<Provider store={store}>
