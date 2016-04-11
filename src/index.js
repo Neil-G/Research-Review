@@ -14,6 +14,8 @@ const firebaseRef = new Firebase("https://engineerprogress.firebaseio.com/")
 export const entriesRef = firebaseRef.child('entries')
 
 let entries = []
+
+// initial load from firebase
 entriesRef.once('value', dataSnapShot => {
 	dataSnapShot.forEach( childSnapShot => {
 		entries.push(childSnapShot.val())
@@ -23,6 +25,15 @@ entriesRef.once('value', dataSnapShot => {
 		entries: entries
 	})
 	console.log(entries)
+})
+
+
+//fetch newly created
+entriesRef.on("child_added", (childSnapShot, prevChildKey) => {
+	store.dispatch({
+		type: "ADD_ENTRY",
+		entry: childSnapShot.val()
+	})
 })
 
 

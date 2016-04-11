@@ -11,7 +11,7 @@ export class Entry extends Component {
 		return(
 			<div 
         key={entry.createdAt} 
-        style={{ boxSizing: 'box-border', border: '3px solid gray', padding: '12px', position: 'relative', maxWidth: '600px', maxHeight: '600px', overflowY: 'scroll' }}>
+        style={{ marginBottom: '20px', boxSizing: 'box-border', border: '3px solid gray', padding: '12px', position: 'relative', maxWidth: '600px', maxHeight: '600px', overflowY: 'scroll' }}>
         <h1 style={{ float: 'left', display: 'inline-block', marginBottom: '0'}}>
           { entry.source } <span style={{ fontSize: '0.3em'}} > { entry.type } </span>
         </h1>
