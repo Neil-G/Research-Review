@@ -51,6 +51,17 @@ entriesRef.on("child_removed", oldChildSnapshot => {
 	})
 })
 
+//remove deleted entry
+entriesRef.on("child_changed", (childSnapShot, prevChildKey) => {
+	entry = childSnapShot.val()
+	entry.firebaseID = childSnapShot.key()
+	console.log("childSnapShot", childSnapShot.val())
+	store.dispatch({
+		type: "EDIT_ENTRY",
+		entry: entry
+	})
+})
+
 render(
 	<Provider store={store}>
 		<AppContainer />
