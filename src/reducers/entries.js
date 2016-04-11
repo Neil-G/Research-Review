@@ -4,6 +4,9 @@ let index;
 
 const entries = (state = [], action) => {
 	switch (action.type) {
+		case 'SET_ENTRIES':
+			return action.entries;
+
 		case 'ADD_ENTRY':
 			return [...state, action.entry];
 

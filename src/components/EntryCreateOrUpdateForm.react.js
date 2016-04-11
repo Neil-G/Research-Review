@@ -196,7 +196,7 @@ export class EntryCreateOrUpdateForm extends Component {
           <label style={{ display: "inline-block"}}> Terms </label>  
           <span onClick={this.addTerm}> + </span>
           {
-            terms.map( (term, index) => {
+            terms && terms.map( (term, index) => {
               return(
                 <div style={{ border: '1px solid gray', height: '100px', position: 'relative', overflow: 'hidden', marginBottom: '8px'}}> 
 

@@ -7,6 +7,7 @@ export class Entry extends Component {
 
 	render(){
 		const { entry, openEditForm } = this.props
+    console.log("entry", entry)
 		return(
 			<div 
         key={entry.createdAt} 
@@ -29,7 +30,7 @@ export class Entry extends Component {
           <b>Terms</b> <br/> 
           <ul>
           { 
-            entry.terms.map( term => <li>{term.name}<ul><li>{term.definition}</li></ul></li>) 
+            entry.terms && entry.terms.map( term => <li>{term.name}<ul><li>{term.definition}</li></ul></li>) 
           }
           </ul>
         </div>
@@ -38,7 +39,7 @@ export class Entry extends Component {
           
       {/* Points */}
           <b>Points</b>
-          { entry.points.map( point => {
+          { entry.points && entry.points.map( point => {
               return <li> {point}. </li>
             }) 
           }
@@ -47,7 +48,7 @@ export class Entry extends Component {
   </div>      
       {/* Tags */}
         <div>
-          { entry.tags.map( tag => {
+          { entry.tags && entry.tags.map( tag => {
               return( 
                 <span style={{ border: '1px solid gray', borderRadius: '100px', padding: '6px' }}> {tag} </span>
               )
