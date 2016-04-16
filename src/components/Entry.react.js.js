@@ -15,56 +15,83 @@ export class Entry extends Component {
 		return(
 			<div 
         key={entry.createdAt} 
-        style={{ background: "#d8d8d8", marginBottom: '20px', boxSizing: 'box-border', border: '3px solid gray', padding: '12px', position: 'relative', maxHeight: '600px', overflowY: 'scroll' }}>
-        <h1 style={{ float: 'left', display: 'inline-block', marginBottom: '0'}}>
-          { entry.source } <span style={{ fontSize: '0.3em'}} > { entry.type } </span>
-        </h1>
+        style={{ marginBottom: '20px', boxSizing: 'box-border', border: '3px solid gray', position: 'relative', maxHeight: '600px', overflowY: 'scroll', borderRadius: '4px' }}>
+        
+      {/* Information Box */}
+      <div style={{ background: "#d8d8d8", border: '0px solid tomato', paddingBottom: '0px', padding: '12px',}} >
+        {/* ENTRY SOURCE */}
+          <h5 style={{ float: 'left', display: 'inline-block', marginBottom: '0' }}>  { entry.title } </h5>
 
-        <button style={{ float: 'right' }} onClick={ this.openEditForm.bind(this) }>
-          Edit
-        </button>
-        <button style={{ float: 'right' }} onClick={ this.setState.bind(this, { expanded: !this.state.expanded }) }>
-          {this.state.expanded ? "Collapse" : "Expand"}
-        </button>
+        {/* ENTRY TITLE */}
+          <p style={{ clear: 'both', marginBottom: '0' }}>{ entry.source } </p>
+
+        {/* ENTRY DESCRIPTION */}
+          <div style={{ color: "#4A90e2" }} >{ entry.description }</div>
+      </div>
+      
 
 
-        <h4 style={{ clear: 'both' }}>{ entry.title }</h4>
-        <div>{ entry.description }</div>
+        {/* EDIT BUTTON */}
+          <span style={{ position: 'absolute', top: '8px', right: '12px', cursor: 'pointer' }} onClick={ this.openEditForm.bind(this) }>
+            Edit
+          </span>
 
-  <div style={{ maxHeight: this.state.expanded ? 1000 : 0, overflow: 'hidden', transition: 'all 0.8s'}} >    
+      {/* EXPAND BUTTON */}
+       
+        <span style={{ position: 'absolute', top: '24px', right: '12px', cursor: 'pointer' }} onClick={ this.setState.bind(this, { expanded: !this.state.expanded }) }>
+          {this.state.expanded ? " - Collapse" : "+ Expand"}
+        </span>
+        
+
+
+
+
+
+        
+
+  {/* EXPANDING SECTION */}
+  <div hidden={!this.state.expanded} style={{ maxHeight: this.state.expanded ? 1000 : 0, overflow: 'hidden', transition: 'all 0.8s', padding: '12px', border: '0px solid tomato'}} >    
       {/* Terms */}
         <div>
-          <b>Terms</b> <br/> 
-          
-          { 
-            entry.terms && entry.terms.map( term => {
-              return(
-                <p>
-                  <span style={{ textDecoration: "underline" }}>{term.name}</span>  <br/>
-                  {term.definition}
-                </p>
-              )
-            }) 
-          }
+          <b style={{ color: '#0D47A1'}} >Terms</b> <br/> 
+          <table>
+            {/* <thead> <tr><td><b> term </b></td><td> definition </td></tr> </thead> */}
+            <tbody>
+              { 
+                entry.terms && entry.terms.map( term => {
+                  return(
+                    
+                      <tr>
+                        <td><b>{term.name}</b></td>  
+                        <td>{term.definition}</td>
+                      </tr>
+                    
+                  )
+                }) 
+              }
+            </tbody>
+          </table>
           
         </div>
         <div>
           <ul>
           
-      {/* Points */}
-          <b>Points</b>
-          { entry.points && entry.points.map( point => {
-              return <li> {point}. </li>
-            }) 
-          }
-          </ul>
-        </div>
-  </div>      
+        {/* Points */}
+            <b style={{ color: '#0D47A1'}}>Points</b>
+            { entry.points && entry.points.map( point => {
+                return <li> {point}. </li>
+              }) 
+            }
+            </ul>
+          </div>
+         {/* <hr style={{ margin: '9px auto 9px 0', textAlign: 'left', color:'#FF8A65' }}/> */}
+        </div> 
+
       {/* Tags */}
-        <div>
+        <div style={{ border: '0px solid tomato', padding: '18px 12px', background: "#d8d8d8"}} >
           { entry.tags && entry.tags.map( tag => {
               return( 
-                <span style={{ border: '1px solid gray', borderRadius: '100px', padding: '6px' }}> {tag} </span>
+                <span style={{ border: '1px solid gray', padding: '6px 12px', background: '#FFCC80', borderRadius: '1px' }}> {tag} </span>
               )
             }) 
           }

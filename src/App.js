@@ -21,7 +21,7 @@ export class App extends Component {
     return (
       <div style={{ padding: '12px' }} className="container">
         <h2 style={{ display: 'inline-block' }}> 
-          Engineer Progress <span onClick={this.openCreateForm} style={{ border: "1px solid gray", borderRadius: "100px", padding: "2px 16px", cursor: "pointer"}} > + </span>
+          Engineer Progress <span onClick={this.openCreateForm} style={{ border: "1px solid #E0E0E0", padding: "2px 16px", cursor: "pointer", color: "#C8E6C9"}} > + </span>
         </h2>
         
         

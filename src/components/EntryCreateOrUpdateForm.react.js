@@ -159,7 +159,7 @@ export class EntryCreateOrUpdateForm extends Component {
           	{formState.state != "closed" && formState.state} 
           </h2> 
 
-          <button style={{ float: 'right'}} onClick={this.closeForm} > close </button>
+          <button style={{ float: 'right', background: '#EF5350', border: 'none', color: 'white'}} onClick={this.closeForm} > close </button>
 
         {/* Source Input */}
           <div style={{ border: '1px solid gray', width: '100%', position: 'relative', height: '80px', clear: "both" }}>
@@ -278,7 +278,7 @@ export class EntryCreateOrUpdateForm extends Component {
             })
           }
           </div>
-          <button style={{ width: "100%" }} onClick={ this.createEntry }> create new entry </button>
+          { formState.state == 'closed' && <button style={{ width: "100%" }} onClick={ this.createEntry }> create new entry </button> }
           <button style={{ width: "100%" }} onClick={ this.editEntry }> update entry </button>
           { this.props.formState.data &&  <button style={{ width: "100%" }} onClick={ this.deleteEntry }> delete entry </button>}
           
