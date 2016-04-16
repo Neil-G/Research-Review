@@ -19,14 +19,12 @@ export class App extends Component {
     const { formState } = this.state
     const { entries, onCreateEntryClick, onDeleteEntryClick, onEditEntryClick } = this.props
     return (
-      <div style={{ padding: '12px' }}>
-        <h1 style={{ display: 'inline-block' }}> Engineer Progress </h1>
-        <button onClick={this.openCreateForm}>
-          { formState ? 'open' : 'close' } create form 
-        </button>
+      <div style={{ padding: '12px' }} className="container">
+        <h2 style={{ display: 'inline-block' }}> 
+          Engineer Progress <span onClick={this.openCreateForm} style={{ border: "1px solid gray", borderRadius: "100px", padding: "2px 16px", cursor: "pointer"}} > + </span>
+        </h2>
         
         
-        <h2> Entries </h2>
           { entries.map( entry => <Entry entry={entry} key={entry.id} openEditForm={this.openEditForm}/> ) }
           <EntryCreateOrUpdateForm 
             closeForm={this.closeForm}

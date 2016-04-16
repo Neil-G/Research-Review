@@ -145,15 +145,14 @@ export class EntryCreateOrUpdateForm extends Component {
             , boxSizing: 'border-box'
             , padding: '12px'
             , background: 'white'
-            , maxWidth: '600px'
-            , width: '96%'
-            , position: 'fixed'
+            , maxWidth: '960px'
+            , width: '100%'
+            , position: 'absolute'
             , top: '80px'
             , bottom: '4px'
-            , left: '8px'
             , overflowY: 'scroll'
             , transition: 'all 1s'
-            , transform: formState.state === "closed" ? 'translateX(-700px)' : 'translateX(0px)'
+            , transform: formState.state === "closed" ? 'translateY(-200vh)' : 'translateY(0px)'
           }}>
           
           <h2 style={{ display: 'inline-block', float: 'left'}}> 
@@ -168,7 +167,7 @@ export class EntryCreateOrUpdateForm extends Component {
             <input 
               type="text" 
               ref="source-input"
-              style={{ width: '100%', height: '100%', borderRadius: '0', marginBottom: '0' }} />
+              style={{ width: '100%', height: '100%', borderRadius: '0', marginBottom: '0', background: "#d8d8d8" }} />
           </div>
 
         {/* Title Input */}
@@ -177,7 +176,7 @@ export class EntryCreateOrUpdateForm extends Component {
             <input 
               type="text"
               ref="title-input" 
-              style={{ width: '100%', height: '100%', borderRadius: '0', marginBottom: '0' }} />
+              style={{ width: '100%', height: '100%', borderRadius: '0', marginBottom: '0', background: "#d8d8d8" }} />
           </div>
 
 {/* Description Input */}
@@ -186,7 +185,7 @@ export class EntryCreateOrUpdateForm extends Component {
             <input
               ref="description-input" 
               type="text" 
-              style={{ width: '100%', height: '100%', borderRadius: '0', marginBottom: '0' }} />
+              style={{ width: '100%', height: '100%', borderRadius: '0', marginBottom: '0', background: "#d8d8d8" }} />
           </div>
 
 {/* Type Input */}
@@ -195,7 +194,7 @@ export class EntryCreateOrUpdateForm extends Component {
             <input 
               ref="type-input"
               type="text" 
-              style={{ width: '100%', height: '100%', borderRadius: '0', marginBottom: '0' }} />
+              style={{ width: '100%', height: '100%', borderRadius: '0', marginBottom: '0', background: "#d8d8d8" }} />
           </div>
     
           
@@ -213,7 +212,7 @@ export class EntryCreateOrUpdateForm extends Component {
                     placeholder="name" 
                     value={terms[index].name}
                     onChange={e => this.updateTerm(e, 'name', index)} 
-                    style={{ width: '100%', borderRadius: '0', position: "absolute", height: '40px' }} 
+                    style={{ width: '100%', borderRadius: '0', position: "absolute", height: '40px', background: "#d8d8d8" }} 
                   />
                   <span 
                     style={{ position: "absolute", top: "4px", right: "8px"}}
@@ -226,7 +225,7 @@ export class EntryCreateOrUpdateForm extends Component {
                     placeholder="definition" 
                     value={terms[index].definition} 
                     onChange={e => this.updateTerm(e, 'definition', index)} 
-                    style={{ width: '100%', position: "absolute", top: '40px', height: '60px', borderRadius: '0' }} 
+                    style={{ width: '100%', position: "absolute", top: '40px', height: '60px', borderRadius: '0', background: "#d8d8d8" }} 
                   />
                 </div>
               );
@@ -244,7 +243,7 @@ export class EntryCreateOrUpdateForm extends Component {
               <div style={{ position: 'relative'}} > 
 {/* Points Input */}
                 <textarea 
-                  style={{ width: "100%", position: "relative", height: '100%', maxWidth: "100%" }}
+                  style={{ width: "100%", position: "relative", height: '100%', maxWidth: "100%", background: "#d8d8d8" }}
                   onChange={e => this.updatePointorTag(e, 'points', index) }
                   value={point}
                 />

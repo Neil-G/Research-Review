@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 
 export class Entry extends Component {
+  constructor(props){
+    super(props)
+    this.state = { expanded: false }
+  }
 	openEditForm(){
 		this.props.openEditForm(this.props.entry)
 	}
@@ -11,28 +15,38 @@ export class Entry extends Component {
 		return(
 			<div 
         key={entry.createdAt} 
-        style={{ marginBottom: '20px', boxSizing: 'box-border', border: '3px solid gray', padding: '12px', position: 'relative', maxWidth: '600px', maxHeight: '600px', overflowY: 'scroll' }}>
+        style={{ background: "#d8d8d8", marginBottom: '20px', boxSizing: 'box-border', border: '3px solid gray', padding: '12px', position: 'relative', maxHeight: '600px', overflowY: 'scroll' }}>
         <h1 style={{ float: 'left', display: 'inline-block', marginBottom: '0'}}>
           { entry.source } <span style={{ fontSize: '0.3em'}} > { entry.type } </span>
         </h1>
 
-        <div style={{ float: 'right' }} onClick={ this.openEditForm.bind(this) }>
+        <button style={{ float: 'right' }} onClick={ this.openEditForm.bind(this) }>
           Edit
-        </div>
+        </button>
+        <button style={{ float: 'right' }} onClick={ this.setState.bind(this, { expanded: !this.state.expanded }) }>
+          {this.state.expanded ? "Collapse" : "Expand"}
+        </button>
 
 
         <h4 style={{ clear: 'both' }}>{ entry.title }</h4>
         <div>{ entry.description }</div>
 
-  <div hidden={false} style={{ maxHeight: 1000, overflow: 'hidden', transition: 'all 0.8s'}} >    
+  <div style={{ maxHeight: this.state.expanded ? 1000 : 0, overflow: 'hidden', transition: 'all 0.8s'}} >    
       {/* Terms */}
         <div>
           <b>Terms</b> <br/> 
-          <ul>
+          
           { 
-            entry.terms && entry.terms.map( term => <li>{term.name}<ul><li>{term.definition}</li></ul></li>) 
+            entry.terms && entry.terms.map( term => {
+              return(
+                <p>
+                  <span style={{ textDecoration: "underline" }}>{term.name}</span>  <br/>
+                  {term.definition}
+                </p>
+              )
+            }) 
           }
-          </ul>
+          
         </div>
         <div>
           <ul>
