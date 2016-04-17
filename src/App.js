@@ -5,14 +5,18 @@ import { connect } from 'react-redux';
 import { addEntry, deleteEntry, editEntry } from './actions';
 import { EntryCreateOrUpdateForm } from './components/EntryCreateOrUpdateForm.react.js'
 import { Entry } from './components/Entry.react.js'
+import { EntryDetailsPartial } from './components/EntryDetailsPartial.react.js'
+
 
 export class App extends Component {
   constructor(props){
     super(props)
-    this.state = { formState: {state: 'closed', data: undefined} }
+    this.state = { formState: {state: 'closed', data: undefined}, entryDetails: undefined }
     this.openCreateForm = () => this.setState({ formState: {state: 'create', data: undefined} })
     this.openEditForm = (entry) => this.setState({ formState: {state: 'edit', data: entry} })
     this.closeForm = () => this.setState({ formState: {state: 'closed', data: undefined} })
+    this.showEntryDetails = () => this.setState({ entryDetails: true })
+    this.closeEntryDetails = () => this.setState({ entryDetails: undefined })
   }  
   render() {
     // console.log("this.state.formState", this.state.formState)
@@ -34,9 +38,12 @@ export class App extends Component {
         
         {/* BODY */}
         <div className="main-body" style={{ overflowY: 'scroll'}} >
-          { entries.map( entry => <Entry entry={entry} key={entry.id} openEditForm={this.openEditForm}/> ) }
+          { entries.map( entry => <Entry entry={entry} key={entry.id} openEditForm={this.openEditForm} showEntryDetails={this.showEntryDetails}  /> ) }
           
         </div>
+
+          <EntryDetailsPartial entryDetails={this.state.entryDetails} closePartial={this.closeEntryDetails} />
+
           <EntryCreateOrUpdateForm 
             closeForm={this.closeForm}
             formState={formState} 

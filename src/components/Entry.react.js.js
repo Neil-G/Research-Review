@@ -8,6 +8,9 @@ export class Entry extends Component {
 	openEditForm(){
 		this.props.openEditForm(this.props.entry)
 	}
+  showEntryDetails(){
+    this.props.showEntryDetails()
+  }
 
 	render(){
 		const { entry, openEditForm } = this.props
@@ -15,20 +18,29 @@ export class Entry extends Component {
 		return(
 			<div className="entry"
         key={entry.createdAt} 
-        style={{ marginBottom: '0px', boxSizing: 'box-border', position: 'relative', maxHeight: '600px', overflowY: 'hidden', borderBottom: '1px solid #BDBDBD', paddingBottom: '18px'}}>
+        style={{ marginBottom: '0px', boxSizing: 'border-box', position: 'relative', maxHeight: '600px', overflowY: 'hidden', borderBottom: '1px solid #BDBDBD', paddingTop: '18px', paddingBottom: '16px' }}>
         
       {/* Information Box */}
-      <div style={{  paddingBottom: '0px', padding: '12px',}} >
+      <div style={{  paddingBottom: '0px', padding: '0 42px 6px 12px' }}>
         {/* ENTRY TITLE */}
-          <h5 onClick={ this.setState.bind(this, { expanded: !this.state.expanded }) } style={{ marginBottom: '0', cursor: 'pointer' }}>  <b>{ entry.title }</b> </h5>
+          <h5 style={{ marginBottom: '0' }}>  <b style={{  cursor: 'pointer' }} onClick={ this.showEntryDetails.bind(this) }>{ entry.title }</b> </h5>
 
           {/* ENTRY DESCRIPTION */}
-          <div style={{ fontSize: '1.3em' }} >{ entry.description }</div>
+          <h6 style={{ marginBottom: '0' }}> {entry.description } </h6>
 
         {/* ENTRY SOURCE */}
-          <p style={{ color: 'gray', marginBottom: '0', color: "#4A90e2", fontSize: '.8em' }}> { entry.source } <span style={{ color: 'gray'}} > * {entry.type} </span> </p>
-
-        
+          <p style={{ color: 'gray', marginBottom: '0', color: "#4A90e2", fontSize: '.8em' }}> { `${entry.source} ` } 
+            <span style={{ color: 'gray'}}> 
+             * {entry.type} * <span style={{ cursor: 'pointer' }} onClick={ this.setState.bind(this, { expanded: !this.state.expanded }) }> ({entry.terms && entry.terms.length || 0}/{entry.points && entry.points.length || 0}) </span>
+             {/* EXPANDING SECTION */}
+              <span hidden={!this.state.expanded} style={{ maxHeight: this.state.expanded ? 1000 : 0, overflow: 'hidden', transition: 'all 0.8s', padding: ' 0 12px', color: 'gray', paddingBottom: '6px', paddingLeft: '0px' }}>
+               { '* ' }   
+               { 
+                  entry.terms && entry.terms.map( term => term.name).join(' * ')
+                }   
+              </span> 
+            </span>  
+          </p>
       </div>
       
 
@@ -44,6 +56,7 @@ export class Entry extends Component {
         //    {this.state.expanded ? " - Collapse" : "+ Expand"}
         //  </span>
        }
+
         
 
        {/* Tags */}
@@ -61,46 +74,7 @@ export class Entry extends Component {
 
         
 
-  {/* EXPANDING SECTION */}
-  <div hidden={!this.state.expanded} style={{ maxHeight: this.state.expanded ? 1000 : 0, overflow: 'hidden', transition: 'all 0.8s', padding: '12px' }} >    
-      {/* Terms */}
-        <div>
-          <b style={{ color: '#0D47A1'}} >Terms</b> <br/> 
-          <table>
-            {/* <thead> <tr><td><b> term </b></td><td> definition </td></tr> </thead> */}
-            <tbody>
-              { 
-                entry.terms && entry.terms.map( term => {
-                  return(
-                    
-                      <tr>
-                        <td><b>{term.name}</b></td>  
-                        <td>{term.definition}</td>
-                      </tr>
-                    
-                  )
-                }) 
-              }
-            </tbody>
-          </table>
-          
-        </div>
-        
-        <div>
-          
-        {/* Points */}
-            <b style={{ color: '#0D47A1'}}>Points</b>
-
-            <table>
-              <tbody>
-            { 
-              entry.points && entry.points.map( point => <tr><td>{point}</td></tr> ) 
-            }
-              </tbody>
-            </table>
-          </div>
-         {/* <hr style={{ margin: '9px auto 9px 0', textAlign: 'left', color:'#FF8A65' }}/> */}
-        </div> 
+  
 
       
       </div>

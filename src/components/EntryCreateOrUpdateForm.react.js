@@ -272,9 +272,8 @@ export class EntryCreateOrUpdateForm extends Component {
                 />
                 <span 
                   onClick={ () => this.deletePointorTag('points', index) }
-                  style={{ position: 'absolute', top: '0px', right: '8px'}}
-                > 
-                X 
+                  style={{ position: 'absolute', top: '0px', right: '8px'}}> 
+                  X 
                 </span>
               </div> 
               )
@@ -304,7 +303,7 @@ export class EntryCreateOrUpdateForm extends Component {
           }
           </div>
           
-          { this.props.formState.data &&  <button style={{ width: "100%", color: 'white', background: 'tomato' }} onClick={ this.deleteEntry }> delete entry </button>}
+          { this.props.formState.data &&  <button style={{ width: "100%", color: 'white', background: 'tomato', marginTop: '100px' }} onClick={ this.deleteEntry }> delete entry </button>}
            </div>
         </form>
 		)
