@@ -143,65 +143,88 @@ export class EntryCreateOrUpdateForm extends Component {
           style={{ 
             border: '1px solid gray'
             , boxSizing: 'border-box'
-            , padding: '12px'
+            // , padding: '12px 20px'
             , background: 'white'
             , maxWidth: '960px'
             , width: '100%'
             , position: 'absolute'
-            , top: '80px'
-            , bottom: '4px'
-            , overflowY: 'scroll'
+            , top: '0px'
+            , left: '0px'
+            , height: '100%'
+            // , bottom: '0px'
             , transition: 'all 1s'
             , transform: formState.state === "closed" ? 'translateY(-200vh)' : 'translateY(0px)'
           }}>
+
+        {/* TOP SECTION */}
+          <div className="" style={{ position: 'absolute', top: '0px', height: '60px', left: '0', width: '100%', boxShadow: '0px 1px 8px 0px rgba(0,0,0,0.4)' }}>
+            <h4 style={{ margin: '0', textAlign: 'center', marginTop: '8px'}} > { formState.state != "closed" && formState.state.toUpperCase() } </h4> 
+            
+
+        {/* CLOSE BUTTON */}
+            <button style={{ background: '#EF5350', border: 'none', color: 'white', position: 'absolute', top: '12px', left: '20px', float: 'left', width: '80px', padding: '0', borderRadius: '0'}} onClick={ this.closeForm }> close </button>
+           
+        {/* SUBMIT BUTTON */}
+            <button 
+              style={{ background: 'green', border: 'none', color: 'white', position: 'absolute', top: '12px', left: '102px', width: '80px', padding: '0', borderRadius: '0'}} 
+              onClick={ formState.state == 'create' ? this.createEntry : this.editEntry }> 
+              submit 
+            </button>
+            
+          </div>
+
+        {/* MAIN SECTION */}
+          <div className="" style={{ position: 'absolute', top: '62px', bottom: '0px', left: '0', right: '0', padding: '12px 20px 0', overflowY: 'scroll'}} >
           
-          <h2 style={{ display: 'inline-block', float: 'left'}}> 
-          	{formState.state != "closed" && formState.state} 
-          </h2> 
 
-          <button style={{ float: 'right', background: '#EF5350', border: 'none', color: 'white'}} onClick={this.closeForm} > close </button>
 
+         
+
+
+        <div style={{ marginBottom: '20px'}} >
         {/* Source Input */}
-          <div style={{ border: '1px solid gray', width: '100%', position: 'relative', height: '80px', clear: "both" }}>
-            <label style={{ position: 'absolute', left: '10px' }}>Source</label>
-            <input 
-              type="text" 
-              ref="source-input"
-              style={{ width: '100%', height: '100%', borderRadius: '0', marginBottom: '0', background: "#d8d8d8" }} />
-          </div>
+          <p style={{ textAlign: 'center', marginBottom: '0px'}} > General Information </p>
+            <div style={{ border: '1px solid gray', width: '100%', position: 'relative', height: '80px', clear: "both" }}>
+              <label style={{ position: 'absolute', left: '10px', color: '#4A90e2' }}>Source</label>
+              <input 
+                type="text" 
+                ref="source-input"
+                style={{ width: '100%', height: '100%', borderRadius: '0', marginBottom: '0' }} />
+            </div>
 
-        {/* Title Input */}
-          <div style={{ border: '1px solid gray', width: '100%', position: 'relative', height: '80px', borderTop: '0' }}>
-            <label style={{ position: 'absolute', left: '10px' }} >Title</label>
-            <input 
-              type="text"
-              ref="title-input" 
-              style={{ width: '100%', height: '100%', borderRadius: '0', marginBottom: '0', background: "#d8d8d8" }} />
-          </div>
+          {/* Title Input */}
+            <div style={{ border: '1px solid gray', width: '100%', position: 'relative', height: '80px', borderTop: '0' }}>
+              <label style={{ position: 'absolute', left: '10px', color: '#4A90e2'  }} >Title</label>
+              <input 
+                type="text"
+                ref="title-input" 
+                style={{ width: '100%', height: '100%', borderRadius: '0', marginBottom: '0' }} />
+            </div>
 
-{/* Description Input */}
-          <div style={{ border: '1px solid gray', width: '100%', position: 'relative', height: '80px', borderTop: '0' }}>
-            <label style={{ position: 'absolute', left: '10px' }} >Description</label>
-            <input
-              ref="description-input" 
-              type="text" 
-              style={{ width: '100%', height: '100%', borderRadius: '0', marginBottom: '0', background: "#d8d8d8" }} />
-          </div>
+  {/* Description Input */}
+            <div style={{ border: '1px solid gray', width: '100%', position: 'relative', height: '80px', borderTop: '0' }}>
+              <label style={{ position: 'absolute', left: '10px', color: '#4A90e2'  }} >Description</label>
+              <input
+                ref="description-input" 
+                type="text" 
+                style={{ width: '100%', height: '100%', borderRadius: '0', marginBottom: '0' }} />
+            </div>
 
-{/* Type Input */}
-          <div style={{ border: '1px solid gray', width: '100%', position: 'relative', height: '80px', borderTop: '0' }}>
-            <label style={{ position: 'absolute', left: '10px' }}>Type</label>
-            <input 
-              ref="type-input"
-              type="text" 
-              style={{ width: '100%', height: '100%', borderRadius: '0', marginBottom: '0', background: "#d8d8d8" }} />
+  {/* Type Input */}
+            <div style={{ border: '1px solid gray', width: '100%', position: 'relative', height: '80px', borderTop: '0' }}>
+              <label style={{ position: 'absolute', left: '10px', color: '#4A90e2'  }}>Type</label>
+              <input 
+                ref="type-input"
+                type="text" 
+                style={{ width: '100%', height: '100%', borderRadius: '0', marginBottom: '0' }} />
+            </div>
           </div>
     
           
 
 {/* Terms Input */}
-          <label style={{ display: "inline-block"}}> Terms </label>  
-          <span onClick={this.addTerm}> + </span>
+          <p style={{ textAlign: 'center', marginBottom: '0px' }}> Terms <span onClick={this.addTerm}> + </span></p>  
+          
           {
             terms && terms.map( (term, index) => {
               return(
@@ -212,7 +235,7 @@ export class EntryCreateOrUpdateForm extends Component {
                     placeholder="name" 
                     value={terms[index].name}
                     onChange={e => this.updateTerm(e, 'name', index)} 
-                    style={{ width: '100%', borderRadius: '0', position: "absolute", height: '40px', background: "#d8d8d8" }} 
+                    style={{ width: '100%', borderRadius: '0', position: "absolute", height: '40px' }} 
                   />
                   <span 
                     style={{ position: "absolute", top: "4px", right: "8px"}}
@@ -225,7 +248,7 @@ export class EntryCreateOrUpdateForm extends Component {
                     placeholder="definition" 
                     value={terms[index].definition} 
                     onChange={e => this.updateTerm(e, 'definition', index)} 
-                    style={{ width: '100%', position: "absolute", top: '40px', height: '60px', borderRadius: '0', background: "#d8d8d8" }} 
+                    style={{ width: '100%', position: "absolute", top: '40px', height: '60px', borderRadius: '0' }} 
                   />
                 </div>
               );
@@ -233,8 +256,8 @@ export class EntryCreateOrUpdateForm extends Component {
           }
 
           <br/>
-          <label style={{ display: "inline-block"}}> Points </label>
-          <span onClick={this.addPoint}> + </span>
+          <p style={{ textAlign: 'center', marginBottom: '0px' }}> Points <span onClick={this.addPoint}> + </span> </p>
+          
           <ul>
           
           {
@@ -243,7 +266,7 @@ export class EntryCreateOrUpdateForm extends Component {
               <div style={{ position: 'relative'}} > 
 {/* Points Input */}
                 <textarea 
-                  style={{ width: "100%", position: "relative", height: '100%', maxWidth: "100%", background: "#d8d8d8" }}
+                  style={{ width: "100%", position: "relative", height: '100%', maxWidth: "100%" }}
                   onChange={e => this.updatePointorTag(e, 'points', index) }
                   value={point}
                 />
@@ -262,10 +285,12 @@ export class EntryCreateOrUpdateForm extends Component {
 
 
 {/* Tags Input */}
-          <label> Tags </label>
-          <input type="text" ref="add-tag-input"/> 
-          <span onClick={this.addTag}> + </span>
-          <div style={{ marginBottom: '12px'}}  >
+          <p style={{ textAlign: 'center', marginBottom: '0px' }}> Tags </p>
+          <div style={{ display: 'block', margin: 'auto', maxWidth: '360px', width: '60%'}} className="">
+            <input type="text" ref="add-tag-input" style={{ width: '260px', boxSizing: 'border-box', margin: '0', borderRadius: '0'}} /> 
+            <button onClick={this.addTag} style={{ boxSizing: 'border-box', margin: '0', width: '98px', padding: '0px', borderRadius: '0'}} >add tag</button>
+          </div>
+          <div style={{ marginBottom: '12px', textAlign: 'center', paddingTop: '12px'}}  >
           {
             tags && tags.map( (tag, index) => {
               return( 
@@ -278,10 +303,9 @@ export class EntryCreateOrUpdateForm extends Component {
             })
           }
           </div>
-          { formState.state == 'closed' && <button style={{ width: "100%" }} onClick={ this.createEntry }> create new entry </button> }
-          <button style={{ width: "100%" }} onClick={ this.editEntry }> update entry </button>
-          { this.props.formState.data &&  <button style={{ width: "100%" }} onClick={ this.deleteEntry }> delete entry </button>}
           
+          { this.props.formState.data &&  <button style={{ width: "100%", color: 'white', background: 'tomato' }} onClick={ this.deleteEntry }> delete entry </button>}
+           </div>
         </form>
 		)
 	}

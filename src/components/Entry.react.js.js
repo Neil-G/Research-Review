@@ -13,20 +13,22 @@ export class Entry extends Component {
 		const { entry, openEditForm } = this.props
     console.log("entry", entry)
 		return(
-			<div 
+			<div className="entry"
         key={entry.createdAt} 
-        style={{ marginBottom: '20px', boxSizing: 'box-border', border: '3px solid gray', position: 'relative', maxHeight: '600px', overflowY: 'scroll', borderRadius: '4px' }}>
+        style={{ marginBottom: '0px', boxSizing: 'box-border', position: 'relative', maxHeight: '600px', overflowY: 'hidden', borderBottom: '1px solid #BDBDBD', paddingBottom: '18px'}}>
         
       {/* Information Box */}
-      <div style={{ background: "#d8d8d8", border: '0px solid tomato', paddingBottom: '0px', padding: '12px',}} >
-        {/* ENTRY SOURCE */}
-          <h5 style={{ float: 'left', display: 'inline-block', marginBottom: '0' }}>  { entry.title } </h5>
-
+      <div style={{  paddingBottom: '0px', padding: '12px',}} >
         {/* ENTRY TITLE */}
-          <p style={{ clear: 'both', marginBottom: '0' }}>{ entry.source } </p>
+          <h5 onClick={ this.setState.bind(this, { expanded: !this.state.expanded }) } style={{ marginBottom: '0', cursor: 'pointer' }}>  <b>{ entry.title }</b> </h5>
 
-        {/* ENTRY DESCRIPTION */}
-          <div style={{ color: "#4A90e2" }} >{ entry.description }</div>
+          {/* ENTRY DESCRIPTION */}
+          <div style={{ fontSize: '1.3em' }} >{ entry.description }</div>
+
+        {/* ENTRY SOURCE */}
+          <p style={{ color: 'gray', marginBottom: '0', color: "#4A90e2", fontSize: '.8em' }}> { entry.source } <span style={{ color: 'gray'}} > * {entry.type} </span> </p>
+
+        
       </div>
       
 
@@ -37,12 +39,22 @@ export class Entry extends Component {
           </span>
 
       {/* EXPAND BUTTON */}
-       
-        <span style={{ position: 'absolute', top: '24px', right: '12px', cursor: 'pointer' }} onClick={ this.setState.bind(this, { expanded: !this.state.expanded }) }>
-          {this.state.expanded ? " - Collapse" : "+ Expand"}
-        </span>
+       { 
+        // <span style={{ position: 'absolute', top: '24px', right: '12px', cursor: 'pointer' }} onClick={ this.setState.bind(this, { expanded: !this.state.expanded }) }>
+        //    {this.state.expanded ? " - Collapse" : "+ Expand"}
+        //  </span>
+       }
         
 
+       {/* Tags */}
+        <div style={{ border: '0px solid tomato', padding: '0px 12px 6px' }} >
+          { entry.tags && entry.tags.map( tag => {
+              return( 
+                <span style={{ padding: '6px 12px', borderRadius: '1px', color: 'white', borderRadius: '100px', background: '#2e7d32', marginRight: '4px', fontSize: '0.7em' }}> {tag} </span>
+              )
+            }) 
+          }
+        </div>
 
 
 
@@ -50,7 +62,7 @@ export class Entry extends Component {
         
 
   {/* EXPANDING SECTION */}
-  <div hidden={!this.state.expanded} style={{ maxHeight: this.state.expanded ? 1000 : 0, overflow: 'hidden', transition: 'all 0.8s', padding: '12px', border: '0px solid tomato'}} >    
+  <div hidden={!this.state.expanded} style={{ maxHeight: this.state.expanded ? 1000 : 0, overflow: 'hidden', transition: 'all 0.8s', padding: '12px' }} >    
       {/* Terms */}
         <div>
           <b style={{ color: '#0D47A1'}} >Terms</b> <br/> 
@@ -90,15 +102,7 @@ export class Entry extends Component {
          {/* <hr style={{ margin: '9px auto 9px 0', textAlign: 'left', color:'#FF8A65' }}/> */}
         </div> 
 
-      {/* Tags */}
-        <div style={{ border: '0px solid tomato', padding: '18px 12px', background: "#d8d8d8"}} >
-          { entry.tags && entry.tags.map( tag => {
-              return( 
-                <span style={{ border: '1px solid gray', padding: '6px 12px', background: '#FFCC80', borderRadius: '1px' }}> {tag} </span>
-              )
-            }) 
-          }
-        </div>
+      
       </div>
 		);
 	}

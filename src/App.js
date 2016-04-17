@@ -19,10 +19,10 @@ export class App extends Component {
     const { formState } = this.state
     const { entries, onCreateEntryClick, onDeleteEntryClick, onEditEntryClick } = this.props
     return (
-      <div style={{ padding: '12px' }} className="container" className="show-border full-screen">
+      <div style={{ padding: '12px' }} className="container" className=" full-screen">
 
         {/* HEADER */}
-        <div className="show-border header" style={{ paddingBottom: '4px'}}>
+        <div className="header" style={{ paddingBottom: '4px', boxShadow: '0px 1px 8px 0px rgba(0,0,0,0.4)'}}>
           <h5 style={{ textAlign: 'center', marginBottom: '4px', color: '#4A90e2' }}> Research Review </h5>
           <span style={{ position: 'absolute', top: '0px', right: '8px'}} onClick={this.openCreateForm}> + </span>
           
@@ -33,15 +33,16 @@ export class App extends Component {
         </div>
         
         {/* BODY */}
-        <div className="show-border main-body">
+        <div className="main-body" style={{ overflowY: 'scroll'}} >
           { entries.map( entry => <Entry entry={entry} key={entry.id} openEditForm={this.openEditForm}/> ) }
+          
+        </div>
           <EntryCreateOrUpdateForm 
             closeForm={this.closeForm}
             formState={formState} 
             onDeleteEntryClick={onDeleteEntryClick}
             onCreateEntryClick={onCreateEntryClick}
             onEditEntryClick={onEditEntryClick} />
-        </div>
       </div>
     );
   }
