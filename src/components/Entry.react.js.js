@@ -73,16 +73,19 @@ export class Entry extends Component {
           </table>
           
         </div>
+        
         <div>
-          <ul>
           
         {/* Points */}
             <b style={{ color: '#0D47A1'}}>Points</b>
-            { entry.points && entry.points.map( point => {
-                return <li> {point}. </li>
-              }) 
+
+            <table>
+              <tbody>
+            { 
+              entry.points && entry.points.map( point => <tr><td>{point}</td></tr> ) 
             }
-            </ul>
+              </tbody>
+            </table>
           </div>
          {/* <hr style={{ margin: '9px auto 9px 0', textAlign: 'left', color:'#FF8A65' }}/> */}
         </div> 

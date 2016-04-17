@@ -19,12 +19,21 @@ export class App extends Component {
     const { formState } = this.state
     const { entries, onCreateEntryClick, onDeleteEntryClick, onEditEntryClick } = this.props
     return (
-      <div style={{ padding: '12px' }} className="container">
-        <h2 style={{ display: 'inline-block' }}> 
-          Engineer Progress <span onClick={this.openCreateForm} style={{ border: "1px solid #E0E0E0", padding: "2px 16px", cursor: "pointer", color: "#C8E6C9"}} > + </span>
-        </h2>
+      <div style={{ padding: '12px' }} className="container" className="show-border full-screen">
+
+        {/* HEADER */}
+        <div className="show-border header" style={{ paddingBottom: '4px'}}>
+          <h5 style={{ textAlign: 'center', marginBottom: '4px', color: '#4A90e2' }}> Research Review </h5>
+          <span style={{ position: 'absolute', top: '0px', right: '8px'}} onClick={this.openCreateForm}> + </span>
+          
+        {/* SEARCH BAR */}
+          <div className="" style={{ margin: 'auto', width: '80%', maxWidth: '400px', height: '30px' }}>
+            <input type='text'  style={{ width: '100%', float: 'right', height: '100%', paddingLeft: '40px'}} />
+          </div>
+        </div>
         
-        
+        {/* BODY */}
+        <div className="show-border main-body">
           { entries.map( entry => <Entry entry={entry} key={entry.id} openEditForm={this.openEditForm}/> ) }
           <EntryCreateOrUpdateForm 
             closeForm={this.closeForm}
@@ -32,6 +41,7 @@ export class App extends Component {
             onDeleteEntryClick={onDeleteEntryClick}
             onCreateEntryClick={onCreateEntryClick}
             onEditEntryClick={onEditEntryClick} />
+        </div>
       </div>
     );
   }
