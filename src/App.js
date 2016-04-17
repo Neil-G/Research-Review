@@ -15,7 +15,7 @@ export class App extends Component {
     this.openCreateForm = () => this.setState({ formState: {state: 'create', data: undefined} })
     this.openEditForm = (entry) => this.setState({ formState: {state: 'edit', data: entry} })
     this.closeForm = () => this.setState({ formState: {state: 'closed', data: undefined} })
-    this.showEntryDetails = () => this.setState({ entryDetails: true })
+    this.showEntryDetails = (entry) => this.setState({ entryDetails: entry })
     this.closeEntryDetails = () => this.setState({ entryDetails: undefined })
   }  
   render() {

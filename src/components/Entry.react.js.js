@@ -9,7 +9,7 @@ export class Entry extends Component {
 		this.props.openEditForm(this.props.entry)
 	}
   showEntryDetails(){
-    this.props.showEntryDetails()
+    this.props.showEntryDetails(this.props.entry)
   }
 
 	render(){

@@ -145,7 +145,7 @@ export class EntryCreateOrUpdateForm extends Component {
             , boxSizing: 'border-box'
             // , padding: '12px 20px'
             , background: 'white'
-            , maxWidth: '960px'
+            // , maxWidth: '960px'
             , width: '100%'
             , position: 'absolute'
             , top: '0px'
@@ -162,11 +162,11 @@ export class EntryCreateOrUpdateForm extends Component {
             
 
         {/* CLOSE BUTTON */}
-            <button style={{ background: '#EF5350', border: 'none', color: 'white', position: 'absolute', top: '12px', left: '20px', float: 'left', width: '80px', padding: '0', borderRadius: '0'}} onClick={ this.closeForm }> close </button>
+            <button style={{ background: '#EF5350', border: 'none', color: 'white', position: 'absolute', top: '12px', left: '20px', float: 'left', width: '40px', padding: '0', borderRadius: '0'}} onClick={ this.closeForm }> x </button>
            
         {/* SUBMIT BUTTON */}
             <button 
-              style={{ background: 'green', border: 'none', color: 'white', position: 'absolute', top: '12px', left: '102px', width: '80px', padding: '0', borderRadius: '0'}} 
+              style={{ background: 'green', border: 'none', color: 'white', position: 'absolute', top: '12px', left: '62px', width: '80px', padding: '0', borderRadius: '0'}} 
               onClick={ formState.state == 'create' ? this.createEntry : this.editEntry }> 
               submit 
             </button>
@@ -286,8 +286,8 @@ export class EntryCreateOrUpdateForm extends Component {
 {/* Tags Input */}
           <p style={{ textAlign: 'center', marginBottom: '0px' }}> Tags </p>
           <div style={{ display: 'block', margin: 'auto', maxWidth: '360px', width: '60%'}} className="">
-            <input type="text" ref="add-tag-input" style={{ width: '260px', boxSizing: 'border-box', margin: '0', borderRadius: '0'}} /> 
-            <button onClick={this.addTag} style={{ boxSizing: 'border-box', margin: '0', width: '98px', padding: '0px', borderRadius: '0'}} >add tag</button>
+            <input type="text" ref="add-tag-input" style={{ width: '70%', boxSizing: 'border-box', margin: '0', borderRadius: '0'}} /> 
+            <button onClick={this.addTag} style={{ boxSizing: 'border-box', margin: '0', width: '25%', padding: '0px', borderRadius: '0'}}>add</button>
           </div>
           <div style={{ marginBottom: '12px', textAlign: 'center', paddingTop: '12px'}}  >
           {
