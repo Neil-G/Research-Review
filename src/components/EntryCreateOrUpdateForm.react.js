@@ -150,7 +150,7 @@ export class EntryCreateOrUpdateForm extends Component {
             , position: 'absolute'
             , top: '0px'
             , left: '0px'
-            , height: '100%'
+            , height: '98vh'
             // , bottom: '0px'
             , transition: 'all 1s'
             , transform: formState.state === "closed" ? 'translateY(-200vh)' : 'translateY(0px)'
@@ -183,8 +183,8 @@ export class EntryCreateOrUpdateForm extends Component {
 
         <div style={{ marginBottom: '20px'}} >
         {/* Source Input */}
-          <p style={{ textAlign: 'center', marginBottom: '0px'}} > General Information </p>
-            <div style={{ border: '1px solid gray', width: '100%', position: 'relative', height: '80px', clear: "both" }}>
+          <p style={{ textAlign: 'center', marginBottom: '0px', background: '#1976D2', width: '100%', color: 'white'}} > General Information </p>
+            <div style={{ border: '1px solid gray', width: '100%', position: 'relative', height: '80px', clear: "both", boxSizing: 'border-box' }}>
               <label style={{ position: 'absolute', left: '10px', color: '#4A90e2' }}>Source</label>
               <input 
                 type="text" 
@@ -228,7 +228,7 @@ export class EntryCreateOrUpdateForm extends Component {
           {
             terms && terms.map( (term, index) => {
               return(
-                <div style={{ border: '1px solid gray', height: '100px', position: 'relative', overflow: 'hidden', marginBottom: '8px'}}> 
+                <div key={term.name} style={{ border: '1px solid gray', height: '100px', position: 'relative', overflow: 'hidden', marginBottom: '8px'}}> 
 
                   <input 
                     type="text" 
@@ -263,7 +263,7 @@ export class EntryCreateOrUpdateForm extends Component {
           {
             points && points.map( (point, index) => {
               return(
-              <div style={{ position: 'relative'}} > 
+              <div key={index} style={{ position: 'relative'}} > 
 {/* Points Input */}
                 <textarea 
                   style={{ width: "100%", position: "relative", height: '100%', maxWidth: "100%" }}

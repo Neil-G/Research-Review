@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import firebase from 'firebase';
 import moment from 'moment';
 import { connect } from 'react-redux';
@@ -19,16 +19,15 @@ export class App extends Component {
     this.closeEntryDetails = () => this.setState({ entryDetails: undefined })
   }  
   render() {
-    // console.log("this.state.formState", this.state.formState)
     const { formState } = this.state
     const { entries, onCreateEntryClick, onDeleteEntryClick, onEditEntryClick } = this.props
     return (
-      <div style={{ padding: '12px' }} className="container" className=" full-screen">
+      <div className="full-screen">
 
         {/* HEADER */}
-        <div className="header" style={{ paddingBottom: '4px', boxShadow: '0px 1px 8px 0px rgba(0,0,0,0.4)'}}>
-          <h5 style={{ textAlign: 'center', marginBottom: '4px', color: '#4A90e2' }}> Research Review </h5>
-          <span style={{ position: 'absolute', top: '0px', right: '8px'}} onClick={this.openCreateForm}> + </span>
+        <div className="header" style={{ paddingBottom: '4px', boxShadow: '0px 4px 9px 0px rgba(0,0,0,0.4)', background: '#E1F5FE'}}>
+          <h5 style={{ textAlign: 'center', marginBottom: '4px', color: 'black' }}> Research Review </h5>
+          <span style={{ position: 'absolute', top: '2px', right: '2px', background: 'green', color: 'white', width: '20px', height: '20px', borderRadius: '100px', textAlign: 'center', cursor: 'pointer' }} onClick={this.openCreateForm}>  </span>
           
         {/* SEARCH BAR */}
           <div className="" style={{ margin: 'auto', width: '80%', maxWidth: '400px', height: '30px' }}>
@@ -37,9 +36,10 @@ export class App extends Component {
         </div>
         
         {/* BODY */}
-        <div className="main-body" style={{ overflowY: 'scroll'}} >
+        <div className="main-body" style={{ overflowY: 'scroll'}}>
+          <div style={{ maxWidth: '600px', margin: 'auto' }} >
           { entries.map( entry => <Entry entry={entry} key={entry.id} openEditForm={this.openEditForm} showEntryDetails={this.showEntryDetails}  /> ) }
-          
+          </div>
         </div>
 
           <EntryDetailsPartial entryDetails={this.state.entryDetails} closePartial={this.closeEntryDetails} />
@@ -55,6 +55,15 @@ export class App extends Component {
   }
 }
 
+
+
+App.propTypes ={
+  entries: PropTypes.array,
+  onCreateEntryClick: PropTypes.func
+}
+
+
+// connect component to store
 const mapStateToProps = (state) => {
   return {
     entries: state.entries

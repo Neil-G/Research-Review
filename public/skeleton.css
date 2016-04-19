@@ -419,6 +419,13 @@ there.
 
 
 
+/* CUSTOM
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+
+/* App Component */
+
+
 .show-border { 
   border: 1px solid tomato; 
   box-sizing: border-box; 
@@ -450,7 +457,7 @@ there.
 }
 
 .entry:nth-child(even) {
-  background-color: #f2f2f2;
+  /*background-color: #f2f2f2;*/
 }
 
 
