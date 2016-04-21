@@ -31,7 +31,7 @@ export class Entry extends Component {
         {/* ENTRY SOURCE */}
           <p style={{ color: 'gray', marginBottom: '0', color: "#4A90e2", fontSize: '.8em' }}> { `${entry.source} ` } 
             <span style={{ color: 'gray'}}> 
-             * {entry.type} * <span style={{ cursor: 'pointer', color: '#9575CD' }} onClick={ this.setState.bind(this, { expanded: !this.state.expanded }) }> ({entry.terms && entry.terms.length || 0}/{entry.points && entry.points.length || 0}) </span>
+             * {entry.type} * <span style={{ cursor: 'pointer' }} onClick={ this.setState.bind(this, { expanded: !this.state.expanded }) }> ({entry.terms && entry.terms.length || 0}/{entry.points && entry.points.length || 0}) </span>
              {/* EXPANDING SECTION */}
               <span 
                 hidden={!this.state.expanded} 

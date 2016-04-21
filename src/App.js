@@ -25,9 +25,9 @@ export class App extends Component {
       <div className="full-screen">
 
         {/* HEADER */}
-        <div className="header" style={{ paddingBottom: '4px', boxShadow: '0px 4px 9px 0px rgba(0,0,0,0.4)', background: '#E1F5FE'}}>
-          <h5 style={{ textAlign: 'center', marginBottom: '4px', color: 'black' }}> Research Review </h5>
-          <span style={{ position: 'absolute', top: '2px', right: '2px', background: 'green', color: 'white', width: '20px', height: '20px', borderRadius: '100px', textAlign: 'center', cursor: 'pointer' }} onClick={this.openCreateForm}>  </span>
+        <div className="header" style={{ paddingBottom: '4px', boxShadow: '0px 4px 9px 0px rgba(0,0,0,0.4)', background: 'papayawhip'}}>
+          <h5 style={{ textAlign: 'center', marginBottom: '4px', color: '#4A90e2' }}> Research Review </h5>
+          <span style={{ position: 'absolute', top: '2px', right: '2px', borderRadius: '100px', textAlign: 'center', cursor: 'pointer', fontSize: '0.6em' }} onClick={this.openCreateForm}> + ADD ENTRY </span>
           
         {/* SEARCH BAR */}
           <div className="" style={{ margin: 'auto', width: '80%', maxWidth: '400px', height: '30px' }}>
